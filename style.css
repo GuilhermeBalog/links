@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  padding: 1rem;
+  margin: 0;
+  font-family: "Rubik", sans-serif;
+  background-color: #f6f6f6;
+  color: #181d25;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid black;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 2rem;
+  margin: 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+nav {
+  width: 100%;
+  display: block;
+  max-width: 400px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: #fff;
+  box-shadow: 0px 3px 2px 0px #00000040;
+}
+
+i {
+  margin-right: 0.5rem;
+}
+
+#linkedin {
+  background-color: #0e76a8;
+}
+
+#github {
+  background-color: #24292e;
+}
+
+#instagram {
+  background-color: #e1206c;
+}
+
+#portfolio {
+  background-color: #00bcd4;
+}
+
+#blog {
+  background-color: #673ab7;
+}
