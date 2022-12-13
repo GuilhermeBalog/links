@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs');
 const path = require('path')
 
-const { buildTemplate } = require('../engine')
+const { buildTemplate } = require('../lib/buildTemplate')
 
 const listItemTemplate = readFileSync(path.join(__dirname, 'list.html'))
 
@@ -14,4 +14,4 @@ const links = [
   { title: "Portfólio", href: "https://guilhermebalog.github.io", color: '#673ab7', iconClasses: "fas fa-code" },
 ].map(link => ({ ...link, id: removeAccentsAndTurnToLowerCase(link.title) }));
 
-module.exports = () => links.map(link => buildTemplate(listItemTemplate, { link })).join('\n')
+module.exports = async () => links.map(link => buildTemplate(listItemTemplate, { link })).join('\n')

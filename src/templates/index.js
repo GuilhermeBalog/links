@@ -1,17 +1,54 @@
-const { readdirSync, readFileSync, writeFileSync} = require('fs');
-const path = require('path')
+const { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } = require('fs');
+const path = require('path');
 
-const { buildTemplate } = require('../engine')
+const { minify } = require('html-minifier');
+require('dotenv').config()
 
-const indexTemplate = readFileSync(path.join(__dirname, 'index.html'))
+const { buildTemplate } = require('../lib/buildTemplate');
 
-const indexProps = readdirSync(__dirname)
-  .filter(filename => filename.endsWith('.js') && filename != 'index.js')
-  .map(filename => filename.replace('.js', ''))
-  .reduce((props, propName) => (
-    { ...props, [propName]: require(`./${propName}`)() }
-  ), {})
+function minifyHtml(html) {
+  return minify(html, {
+    collapseBooleanAttributes: true,
+    collapseInlineTagWhitespace: true,
+    collapseWhitespace: true,
+    minifyCSS: true,
+    removeComments: true,
+    removeRedundantAttributes: true,
+    sortAttributes: true,
+    sortClassName: true,
+  })
+}
 
-// TODO: minify the final HTML
+async function buildIndexFile() {
+  const indexTemplate = readFileSync(path.join(__dirname, 'index.html'));
 
-writeFileSync('index-final.html', buildTemplate(indexTemplate, indexProps))
+  const builders = readdirSync(__dirname)
+    .filter(filename => filename.endsWith('.js') && filename != 'index.js');
+
+  const propsValues = await Promise.all(builders.map(filename => require(`./${filename}`)()));
+
+  const props = {}
+  for (let i = 0; i < builders.length; i++) {
+    const propName = builders[i].replace('.js', '');
+
+    props[propName] = propsValues[i]
+  }
+
+  const builtHtml = buildTemplate(indexTemplate, props);
+  const minifiedHtml = minifyHtml(builtHtml);
+
+  return minifiedHtml;
+}
+
+async function saveIndexFile() {
+  const distFolder = path.join(process.cwd(), 'dist');
+
+  if (!existsSync(distFolder)) {
+    mkdirSync(distFolder);
+  }
+
+  const indexPath = path.join(distFolder, 'index.html');
+  writeFileSync(indexPath, await buildIndexFile());
+}
+
+saveIndexFile()
