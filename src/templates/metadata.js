@@ -3,6 +3,7 @@ const path = require('path')
 
 const { buildTemplate } = require('../lib/buildTemplate');
 const { queryGitHub } = require('../lib/github');
+const { removeEmojis } = require('../lib/removeEmojis');
 
 const metadataTemplate = readFileSync(path.join(__dirname, 'metadata.html'))
 
@@ -11,12 +12,13 @@ async function getProps() {
     repository(name: "links", owner: "guilhermebalog") {
       openGraphImageUrl
       homepageUrl
+      description
     }
   }`);
 
   const props = {
     title: 'Guilherme Balog | Links',
-    description: 'Página listando links para minhas redes sociais e alguns de meus projetos.',
+    description: removeEmojis(repository.description).trim(),
     url: repository.homepageUrl,
     thumbnail: repository.openGraphImageUrl
   };
