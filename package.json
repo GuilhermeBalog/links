@@ -1,0 +1,29 @@
+{
+  "name": "links",
+  "version": "1.0.0",
+  "description": "🔗 Página listando links para minhas redes sociais e alguns de meus projetos.",
+  "main": "src/templates/index.js",
+  "scripts": {
+    "build": "node src/templates/index.js",
+    "dev": "nodemon -e js,html,css --ignore dist src/templates/index.js",
+    "env-example": "cp .env .env.example && sed -i 's/=.*/=/g' .env.example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeBalog/links.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuilhermeBalog/links/issues"
+  },
+  "homepage": "https://github.com/GuilhermeBalog/links#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "html-minifier": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
