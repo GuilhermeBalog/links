@@ -1,6 +1,8 @@
-<li id="${link.id}" style="--link-color: ${link.color};">
-  <a href="${link.href}">
-    <i class="${link.iconClasses}"></i>
-    ${link.title}
-  </a>
-</li>
+${links.map((link, i) => `
+  <li id="${link.id}" style="--link-color: ${link.color};">
+    <a href="${link.href}">
+      <i class="${link.iconClasses}"></i>
+      ${link.title}
+    </a>
+  </li>
+`).join('')}

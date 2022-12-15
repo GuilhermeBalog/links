@@ -14,4 +14,4 @@ const links = [
   { title: "Portfólio", href: "https://guilhermebalog.github.io", color: '#673ab7', iconClasses: "fas fa-code" },
 ].map(link => ({ ...link, id: removeAccentsAndTurnToLowerCase(link.title) }));
 
-module.exports = async () => links.map(link => buildTemplate(listItemTemplate, { link })).join('\n')
+module.exports = async () => buildTemplate(listItemTemplate, { links })
